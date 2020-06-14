@@ -4,7 +4,11 @@
   box-sizing: border-box;
   font-size: 10px;
 }
+html{
+  scroll-behavior: smooth;
+}
 body {
-/* font-family: Arial, Helvetica, sans-serif; */
-font-family: open-sans;
+ font-family: 'Montserrat', sans-serif;
+ /* background-color: #ebeaea; */
+
 }

@@ -1,34 +1,26 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 
-// import React, {useEffect} from 'react'
-
 const useFetchData = endpoint => {
-    const [state, setState] = useState({ movies: [] })
+    const [state, setState] = useState({ movies: [], backgroundImage:"https://unsplash.com/s/photos/unavailable" })
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-    // const fetchMovies = () => {
         try {
             setLoading(true)
             setError(false)
             axios.get(endpoint)
                 .then(res => {
-                    // const movieList = res.data.results
-                    // return movieList
-                    // console.log(movieList)
-                    
                     setState(prev => ({
                         ...prev,
                         movies: res.data.results,
-                        totalPages: res.data.total_pages
+                        totalPages: res.data.total_pages, 
+                        backgroundImage: res.data.results[0].backdrop_path && res.data.results[0].backdrop_path
                         
                     }))
                     console.log(state)
                 })
-
-
         } catch (error) {
             setError(true)
             console.log(error)
@@ -36,22 +28,9 @@ const useFetchData = endpoint => {
         }
         console.log(state.movies)
         setLoading(false)
-    // }
-
-        // fetchMovies(endPoint)
-        // return () => {
-        //     cleanup
-        // }
+    
     }, [endpoint])
     return [{ state, error, loading }]
 }
-
-
-//     fetchData(BASE_URL)
-//     // return () => {
-//         //     cleanup
-//         // }
-//     }, [])
-
 
 export default useFetchData;

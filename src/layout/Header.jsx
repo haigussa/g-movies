@@ -1,12 +1,15 @@
 import React from 'react'
-import logo from  '../../src/tmdb_logo.svg'
+import logo from '../../src/tmdb_logo.svg'
 import StyledHeader from '../styles/StyledHeader'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     return (
         <StyledHeader>
-            <h2>gMovies</h2>
-            <img src={logo} alt=""/>
+            <Link to='/movies'>
+                <h2>gMovies</h2>
+            </Link>
+            <img src={logo} alt="" />
 
         </StyledHeader>
     )
