@@ -5,8 +5,11 @@ import StyledMovieGrid, { StyledTitle } from '../styles/StyledMovieGrid'
 import StyledButton from '../styles/StyledButton'
 import StyledForm from '../styles/StyledForm'
 import NoImage from '../NoImage.jpg'
+import NoBackground from '../NoBackground.png'
+import SearchIcon from '../SearchIcon.svg'
 const BASE_URL = 'https://api.themoviedb.org/3/'
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
+
 
 const PopularMovieGrid = () => {
     const [searchMovies, setSearchMovies] = useState(false)
@@ -26,6 +29,7 @@ const PopularMovieGrid = () => {
     const handleChange = e => {
         setSearchText(e.target.value)
     }
+
     const handleSubmitSearch = e => {
         e.preventDefault()
         setSearchTerm(searchText)
@@ -45,34 +49,33 @@ const PopularMovieGrid = () => {
                 : `${NoImage}`}
         />
     })
-    console.log(state)
+
     return (
         <>
-
+            {searchMovies
+                ? <StyledTitle>Search Result</StyledTitle>
+                : <StyledTitle>Popular Movies</StyledTitle>}
             <StyledForm
                 onSubmit={handleSubmitSearch}
-                bgImage={`${IMG_BASE_URL}w1280/${state.backgroundImage}`}
+                bgImage={state.backgroundImage
+                    ? `${IMG_BASE_URL}w1280/${state.backgroundImage}`
+                    : NoBackground}
             >
                 <input
                     type="text"
-                    name="searchTerm"
+                    id="searchTerm"
                     placeholder="Search for a movie..."
                     onChange={handleChange}
                     value={searchText}
                 />
-                {/* <input type="submit" value="Search" /> */}
             </StyledForm>
-            {searchMovies ?
-                <StyledTitle>Search Result</StyledTitle>
-                : <StyledTitle>Popular Movies</StyledTitle>}
+
             <StyledMovieGrid>
                 {movieList}
             </StyledMovieGrid>
             <StyledButton
                 onClick={() => handlePageChange(page)}
-            >
-                Load More
-            </StyledButton>
+            > Load More</StyledButton>
         </>
     )
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios'
 
 const useFetchData = endpoint => {
-    const [state, setState] = useState({ movies: [], backgroundImage:"https://unsplash.com/s/photos/unavailable" })
+    const [state, setState] = useState({ movies: [], backgroundImage:"" })
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -16,7 +16,7 @@ const useFetchData = endpoint => {
                         ...prev,
                         movies: res.data.results,
                         totalPages: res.data.total_pages, 
-                        backgroundImage: res.data.results[0].backdrop_path && res.data.results[0].backdrop_path
+                        backgroundImage: (res.data.results[0]!==undefined) ? res.data.results[0].backdrop_path : null
                         
                     }))
                     console.log(state)
