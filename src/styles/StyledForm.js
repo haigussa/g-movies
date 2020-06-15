@@ -28,6 +28,7 @@ const StyledForm = styled.form`
                 color: white;
                 font-size: 1.8rem;
                 opacity: 1;
+                text-align:center;
             }
 }
 

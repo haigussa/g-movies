@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const StyledMovieCard = styled.div`
 display: flex;
 width: 630px;
-margin: 5px;
+margin: 2rem 5px;
 height: 100%;
 border: 2px solid #999;
 border-radius: 0 30px 30px 0; 

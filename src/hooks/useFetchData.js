@@ -12,6 +12,7 @@ const useFetchData = endpoint => {
             setError(false)
             axios.get(endpoint)
                 .then(res => {
+                    console.log(res.data)
                     setState(prev => ({
                         ...prev,
                         movies: res.data.results,

@@ -4,9 +4,8 @@ import useFetchData from '../hooks/useFetchData'
 import StyledMovieGrid, { StyledTitle } from '../styles/StyledMovieGrid'
 import StyledButton from '../styles/StyledButton'
 import StyledForm from '../styles/StyledForm'
-import NoImage from '../NoImage.jpg'
+import NoPhotoAvailable from '../NoPhotoAvailable.png'
 import NoBackground from '../NoBackground.png'
-import SearchIcon from '../SearchIcon.svg'
 const BASE_URL = 'https://api.themoviedb.org/3/'
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
 
@@ -46,7 +45,7 @@ const PopularMovieGrid = () => {
             plot={movie.overview}
             imgSrc={movie.poster_path ?
                 `${IMG_BASE_URL}w154/${movie.poster_path}`
-                : `${NoImage}`}
+                : `${NoPhotoAvailable}`}
         />
     })
 

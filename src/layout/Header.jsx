@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../../src/tmdb_logo.svg'
-import StyledHeader from '../styles/StyledHeader'
+import StyledHeader from '../styles/StyledHeaderAndFooter'
 import { Link } from 'react-router-dom'
 
 const Header = () => {

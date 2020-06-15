@@ -6,7 +6,9 @@ const StyledButton = styled.button`
     font-size: 2rem;
     border-radius: 5px;
     display:block;
+    width: 50%;
     margin: 4rem auto;
+    outline:none;
     transition: all 0.3s ease-in-out;
     &:hover{
         cursor: pointer;
