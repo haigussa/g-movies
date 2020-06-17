@@ -21,12 +21,10 @@ a{
         cursor:pointer;
         color:#333;
         background-color:white;
-
     }
 }
 h2{
     font-size: 3rem;
-    color:#fff;
     font-family: 'Bellota', cursive;
     padding:0;
     letter-spacing: .5rem;

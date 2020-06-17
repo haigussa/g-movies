@@ -3,14 +3,12 @@ import styled from 'styled-components'
 const StyledMovieCard = styled.div`
 display: flex;
 width: 630px;
-margin: 2rem 5px;
+margin: 2rem auto;
 height: 100%;
 border: 2px solid #999;
 border-radius: 0 30px 30px 0; 
 background-color: white;
 background-color: #CACACA;
-
-
 .imgContainer{
     height: 100%;
     box-sizing: border-box;
@@ -18,24 +16,22 @@ background-color: #CACACA;
         display: block;
         height: 100%;
         width:154px;
-        /* border: 8px solid red; */
+        &:hover{
+            cursor: pointer;
+            border: 1px solid #e43f5a
+        }
     }
 }
 .movieDetail{
     border-radius: 0 30px 30px 0;
     width: 100%;
     position:relative;
-    /* min-height: 10rem;
-    min-height: 23.1rem; */
-
-
     .movieTitle{
         background-color:#c2c2c2;
         text-align: center;
         font-size: 1.7rem;
         border-radius: 0 30px 0px 0;
         padding: 1rem;
-        /* font-family: 'Montserrat', sans-serif; */
         font-family: 'Bellota', cursive;
     }
     .movieInfo{
@@ -53,6 +49,20 @@ background-color: #CACACA;
         & p span{
             font-size: 1.5rem;
         }
+        .cta {
+            background-color: #e43f5a;
+            padding: 0.4rem;
+            border-radius: 4px;
+            border:none;
+            color:white;
+            font-size: 1.3rem;
+            transition: 0.3s all ease-in-out;
+            &:hover{
+                cursor:pointer;
+                background-color:white;
+                color: #e43f5a;
+            }
+        }
     }
     .moviePlot{
         font-size: 1.5rem;
@@ -68,5 +78,4 @@ background-color: #CACACA;
    } 
 
 `
-
 export default StyledMovieCard

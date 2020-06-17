@@ -6,7 +6,7 @@ const MovieCard = (props) => {
     return (
         <StyledMovieCard>
             <div className="imgContainer">
-                <Link to="#">
+                <Link to={"/movie/" + props.id}>
                     <img src={props.imgSrc} alt={props.title} />
                 </Link>
             </div>
@@ -28,6 +28,9 @@ const MovieCard = (props) => {
                             {props.rating}/10
                         </span>
                     </p>
+                    <Link to={"/movie/" + props.id}>
+                        <button className="cta"> More </button>
+                    </Link>
                 </div>
             </div>
         </StyledMovieCard>
