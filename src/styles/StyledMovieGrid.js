@@ -11,6 +11,7 @@ export const StyledTitle = styled.h2`
     font-size: 3rem;
     text-align: center;
     margin:4rem auto 6rem;
+    color:#FFF;
 `
 
 export const StyledHeroTitle = styled.h3`

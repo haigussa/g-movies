@@ -1,13 +1,14 @@
 import styled from 'styled-components'
 
-const StyledHeaderAndFooter= styled.nav`
+const StyledHeader= styled.nav`
 height: 8rem;
 display:flex;
 justify-content: space-between;
-margin:0 auto 2rem;
+margin:2rem auto;
 background-color:#666;
 padding: 1rem;
 border-bottom: 2px solid black;
+min-width: 100%;
 a{
     text-decoration:none;
     align-self:center;
@@ -32,18 +33,10 @@ h2{
 img{
     height: 6rem;
     margin-right: 3rem;
-}
-p{
-    font-size: 1.3rem;
-    color:white;
     align-self:center;
-    margin-left: 3rem;
-}
-.socialWrapper{
-    align-self:center;
-    display:flex;
-    margin-right: 3rem;
 }
 
+
+
 `
-export default StyledHeaderAndFooter
+export default StyledHeader

@@ -1,12 +1,15 @@
 import React from 'react'
-import StyledFooter from '../styles/StyledHeaderAndFooter'
+import StyledFooter from '../styles/StyledFooter'
 import { FaFacebookSquare, FaInstagramSquare, FaLinkedinIn, FaGithubSquare } from 'react-icons/fa'
 
 const Footer = () => {
+    const style ={
+        marginTop:"6rem"
+    }
     return (
-        <StyledFooter>
+        <StyledFooter style={style}>
             <p >Created By Gussa Haile </p>
-            <div className="socialWrapper">
+            <div className="socialWrapper" >
                 <a className="social" href="https://www.facebook.com/haigussa" target="_blank" rel="noopener noreferrer" ><FaFacebookSquare size="3rem" /></a>
                 <a className="social" href="https://www.instagram.com/haigussa" target="_blank" rel="noopener noreferrer"><FaInstagramSquare size="3rem" /></a>
                 <a className="social" href="https://www.linkedin.com/in/haigussa" target="_blank" rel="noopener noreferrer"><FaLinkedinIn size="3rem" /></a>

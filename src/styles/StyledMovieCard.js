@@ -46,21 +46,23 @@ background-color: #CACACA;
         bottom: 0;
         left: 0;
         width: 100%;
+        margin-top:1rem;
         & p span{
             font-size: 1.5rem;
         }
         .cta {
-            background-color: #e43f5a;
-            padding: 0.4rem;
+            /* border: 1px solid #e43f5a; */
+            padding: 0.4rem 1rem;
             border-radius: 4px;
-            border:none;
             color:white;
+            background-color:#999;
             font-size: 1.3rem;
             transition: 0.3s all ease-in-out;
             &:hover{
                 cursor:pointer;
-                background-color:white;
-                color: #e43f5a;
+                background-color:#c2c2c2;
+                color:#222;
+                /* border: 1px solid #e43f5a; */
             }
         }
     }
@@ -71,7 +73,7 @@ background-color: #CACACA;
         width: 100%;
         display: -webkit-box;
         margin-top: 1rem;
-        -webkit-line-clamp: 7; 
+        -webkit-line-clamp: 6; 
         -webkit-box-orient: vertical;  
         overflow:hidden;
     }

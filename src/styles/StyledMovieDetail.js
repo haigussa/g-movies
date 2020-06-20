@@ -2,16 +2,13 @@ import styled from 'styled-components'
 
 const StyledMovieDetail = styled.div`
     min-width: 100%;
-    height: 500px;
+    height: 650px;
     margin-top: -1.9rem;
     text-align:center;
     position:relative;
-    background: ${props => `url(${props.bgImage})`};
-    background-size: 100% cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    min-height:80vh;
+    background: ${props => `url(${props.bgImage}) no-repeat center center/cover`};
     .movieSummary{
-        height: 6rem;
         color: white;
         font-size: 1.3rem;
         display: flex;
@@ -25,36 +22,87 @@ const StyledMovieDetail = styled.div`
             font-size:2rem;
             display:flex;
            justify-content:center;
+           align-items:center;
+           height: 6rem;
             .fa{
                 color: #e43f5a;
                 align-self:center;
             }
         }
     }
-`
-export const StyledMovieDescription = styled.div`
-    width: 80%;
-    margin: auto;
-    padding: 1rem 2rem;
-    border-radius: 10px;
-    text-align: center;
-    h2{
-        font-size: 3rem;
-    }
-    .tagline{
-        font-size: 1.5rem;
-        display: block;
-        margin-bottom: 2rem;
-        font-style: italic;
-    }
-    .plot{
-        font-size: 1.5rem;
-    }
-    .plotOverview{
-        text-align: justify;
-        font-size: 1.3rem;
-    }
+    .movieDescriptionWrapper{
+        color:white;
+        background-color:rgba(0,0,0,.3);
+        width: 100%;
+        height:100%;
+        margin: auto;
+        display:flex;
+        flex-direction:column;
+        
+        h2{
+            font-size:4rem;
+            padding-top: 2rem;
+            margin-bottom:1rem;
+        }
+        .tagline{
+            font-size: 2rem;
+            font-style:italic;
+            display:block;
+            margin-bottom:2rem;
+        }
+        .movieContainer{
+            display:flex;
+            background-color:rgba(0,0,0,.6);
+            border: 1px solid #c2c2c2;
+            border-bottom: none;
+            border-radius:10px 10px 0 0 ;
+            max-width: 80%;
+            margin:auto auto 6rem;
 
+            img{
+                align-self:center;
+                background-color:transparent;
+                @media (max-width: 978px) {
+                    flex-direction: column;
+                    display:none;
+                }
+            }
+            .overview{
+                display:flex;
+                flex-direction:column;
+                justify-content: space-around;
+                .moviePlot{
+                    margin: 1rem;
+                    p{
+                        font-size:1.7rem;
+                        text-align:justify;
+                        line-height:1.5;
+                        padding: 1rem 2rem;
+                    }
+                }
+            }
+            .movieDetails{
+                display:flex;
+                justify-content:space-evenly;
+                margin-bottom: 4rem;
+                @media (max-width: 414px) {
+        display:none;
+    }
+                .feature{
+                    h3{
+                        font-size:2rem;
+                        margin: 1rem 2rem;
+                    }
+                    .featureList li{
+                        list-style:none;
+                        font-size: 1.5rem;
+                        padding-bottom: 1rem;
+                    }
+                }
+            }
+        }
+    }
+        
 `
 
 export default StyledMovieDetail
