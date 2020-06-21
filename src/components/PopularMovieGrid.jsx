@@ -6,6 +6,9 @@ import StyledButton from '../styles/StyledButton'
 import StyledForm from '../styles/StyledForm'
 import NoPhotoAvailable from '../NoPhotoAvailable.png'
 import NoBackground from '../NoBackground.png'
+import LoadingPage from './LoadingPage'
+import ErrorPage from './ErrorPage'
+import NotFound from './NotFound'
 const BASE_URL = 'https://api.themoviedb.org/3/'
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
 
@@ -18,14 +21,14 @@ const PopularMovieGrid = () => {
     const endPoint = searchMovies
         ? `${BASE_URL}search/movie?api_key=${process.env.REACT_APP_SECRET_KEY}&language=en-US&query=${searchTerm}&page=${page}&include_adult=false`
         : `${BASE_URL}movie/popular?api_key=${process.env.REACT_APP_SECRET_KEY}&language=en-US&page=${page}`
-    const [{ state, error, loading }, fetchMovies] = useFetchMovies(endPoint)
+    const [{ state, error, loading }] = useFetchMovies(endPoint)
 
     const handlePageChange = prevPage => {
         setPage(prevPage += 1)
         console.log(prevPage)
         window.scrollTo(0, 0)
     }
-
+    // console.log(state)
     const handleChange = e => {
         setSearchText(e.target.value)
     }
@@ -50,36 +53,47 @@ const PopularMovieGrid = () => {
                 : `${NoPhotoAvailable}`}
         />
     })
-
-    return (
-        <>
-            {searchMovies
-                ? <StyledTitle>Search Result</StyledTitle>
-                : <StyledTitle>Popular Movies</StyledTitle>}
-            <StyledForm
-                onSubmit={handleSubmitSearch}
-                bgImage={state.backgroundImage
-                    ? `${IMG_BASE_URL}w1280/${state.backgroundImage}`
-                    : NoBackground}
-            >
-                {!searchMovies
-                    ? <input
-                        type="text"
-                        id="searchTerm"
-                        placeholder="Search for a movie..."
-                        onChange={handleChange}
-                        value={searchText}
-                    /> : <StyledHeroTitle>{state.movies[0].title}</StyledHeroTitle>
-                }
-            </StyledForm>
-            <StyledMovieGrid>
-                {movieList}
-            </StyledMovieGrid>
-            <StyledButton
-                onClick={() => handlePageChange(page)}
-            > Load More</StyledButton>
-        </>
-    )
+    // console.log(state)
+    if (!error && !loading && state.totalPages > 1) {
+        return (
+            <>
+                {searchMovies
+                    ? <StyledTitle>Search Result</StyledTitle>
+                    : <StyledTitle>Popular Movies</StyledTitle>}
+                <StyledForm
+                    onSubmit={handleSubmitSearch}
+                    bgImage={state.backgroundImage
+                        ? `${IMG_BASE_URL}w1280/${state.backgroundImage}`
+                        : NoBackground}
+                >
+                    {!searchMovies
+                        ? <input
+                            type="text"
+                            id="searchTerm"
+                            placeholder="Search for a movie..."
+                            onChange={handleChange}
+                            value={searchText}
+                        /> : <StyledHeroTitle>{state.movies[0].title}</StyledHeroTitle>
+                    }
+                </StyledForm>
+                <StyledMovieGrid>
+                    {movieList}
+                </StyledMovieGrid>
+                <StyledButton
+                    onClick={() => handlePageChange(page)}
+                > View More</StyledButton>
+            </>
+        )
+    } else if (loading) {
+        return <LoadingPage />
+    } else if (error) {
+        return <ErrorPage />
+    } else if (state.status === 200
+        && state.totalPages === 0) {
+        return <NotFound />
+    } else {
+        return null;
+    }
 }
 
 export default PopularMovieGrid

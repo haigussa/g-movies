@@ -5,6 +5,10 @@ import NoPhotoAvailable from '../../NoPhotoAvailable.png'
 import NoProfilePicture from '../../NoProfilePicture.png'
 import StyledMovieDetail from '../../styles/StyledMovieDetail'
 import { StyledCastGrid } from '../../styles/StyledMovieCast'
+import LoadingPage from '../LoadingPage'
+import ErrorPage from '../ErrorPage'
+import useFetchCredits from '../../hooks/useFetchCredits'
+import MovieCast from './MovieCast'
 
 import {
     FaThumbsUp,
@@ -12,14 +16,24 @@ import {
     FaRegCalendarCheck
 } from 'react-icons/fa'
 
-import useFetchCredits from '../../hooks/useFetchCredits'
-import MovieCast from './MovieCast'
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
 
 const MovieDetail = props => {
-    const [{ movie, genres, languages, countries, error, loading }, fetchMovieDetail] = useFetchMovieDetail(props.match.params.id)
+    const [
+        {
+            movie,
+            genres,
+            languages,
+            countries,
+            error,
+            loading
+        }
 
-    const [{ credits }, fetchCredits] = useFetchCredits(props.match.params.id)
+    ] = useFetchMovieDetail(props.match.params.id)
+
+    const [
+        { credits },
+    ] = useFetchCredits(props.match.params.id)
 
     console.log(credits.cast)
     const movieGenres = genres.length
@@ -59,95 +73,103 @@ const MovieDetail = props => {
                 actorName={cast.name}
                 character={cast.character} />)
         : ""
+    if (!error && !loading) {
 
-    return (
-        <>
-            <StyledMovieDetail bgImage={movie.backdrop_path
-                ? `${IMG_BASE_URL}w1280/${movie.backdrop_path}`
-                : NoBackground}>
+        return (
+            <>
 
-                <div className="movieSummary">
-                    <span>
-                        <FaThumbsUp size="2rem" className="fa" /> &nbsp; {movie.vote_average}
-                    </span>
-                    <span>
-                        <FaClock size="2rem" className="fa" />
+                <StyledMovieDetail bgImage={movie.backdrop_path
+                    ? `${IMG_BASE_URL}w1280/${movie.backdrop_path}`
+                    : NoBackground}>
+
+                    <div className="movieSummary">
+                        <span>
+                            <FaThumbsUp size="2rem" className="fa" /> &nbsp; {movie.vote_average}
+                        </span>
+                        <span>
+                            <FaClock size="2rem" className="fa" />
                         &nbsp; {movie.runtime} minutes
                         </span>
-                    <span><FaRegCalendarCheck size="2rem" className="fa" /> &nbsp; {new Date().getFullYear(movie.release_date)} </span>
-                </div>
-
-                <div className="movieDescriptionWrapper">
-                    <div className="title">
-                        <h2>{movie.title}</h2>
-                        <span className="tagline">
-                            {movie.tagline}
-                        </span>
+                        <span><FaRegCalendarCheck size="2rem" className="fa" /> &nbsp; {new Date(movie.release_date).getFullYear()} </span>
                     </div>
 
-                    <div className="movieContainer">
-                        <img src={posterImage} alt={movie.title} />
-                        <div className="overview">
-                            <div className="moviePlot">
-                                <p>{movie.overview}</p>
-                            </div>
-                            <div className="movieDetails">
-                                <div className="feature" >
-                                    <h3>
-                                        {
-                                            genres.length === 1
-                                                ? "Genres"
-                                                : genres.length > 1
-                                                    ? "Genres" : ""
-                                        }
-                                    </h3>
-                                    <ul className="featureList">
-                                        {movieGenres}
-                                    </ul>
+                    <div className="movieDescriptionWrapper">
+                        <div className="title">
+                            <h2>{movie.title}</h2>
+                            <span className="tagline">
+                                {movie.tagline}
+                            </span>
+                        </div>
+
+                        <div className="movieContainer">
+                            <img src={posterImage} alt={movie.title} />
+                            <div className="overview">
+                                <div className="moviePlot">
+                                    <p>{movie.overview}</p>
                                 </div>
-                                <div className="feature">
-                                    <h3>
-                                        {
-                                            languages.length === 1
-                                                ? "Language"
-                                                : movieLanguages.length > 1
-                                                    ? "Languages"
-                                                    : ""
-                                        }
-                                    </h3>
-                                    <ul className="featureList">
-                                        {movieLanguages}
-                                    </ul>
-                                </div>
-                                <div className="feature">
-                                    <h3>
-                                        {
-                                            countries.length === 1
-                                                ? "Country"
-                                                : countries.length > 1
-                                                    ? "Countries"
-                                                    : ""
-                                        }
-                                    </h3>
-                                    <ul className="featureList">
-                                        {movieCountries}
-                                    </ul>
+                                <div className="movieDetails">
+                                    <div className="feature" >
+                                        <h3>
+                                            {
+                                                genres.length === 1
+                                                    ? "Genres"
+                                                    : genres.length > 1
+                                                        ? "Genres" : ""
+                                            }
+                                        </h3>
+                                        <ul className="featureList">
+                                            {movieGenres}
+                                        </ul>
+                                    </div>
+                                    <div className="feature">
+                                        <h3>
+                                            {
+                                                languages.length === 1
+                                                    ? "Language"
+                                                    : movieLanguages.length > 1
+                                                        ? "Languages"
+                                                        : ""
+                                            }
+                                        </h3>
+                                        <ul className="featureList">
+                                            {movieLanguages}
+                                        </ul>
+                                    </div>
+                                    <div className="feature">
+                                        <h3>
+                                            {
+                                                countries.length === 1
+                                                    ? "Country"
+                                                    : countries.length > 1
+                                                        ? "Countries"
+                                                        : ""
+                                            }
+                                        </h3>
+                                        <ul className="featureList">
+                                            {movieCountries}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
-                </div>
+                </StyledMovieDetail>
 
-            </StyledMovieDetail>
+                <h3 className="sectionTitle">Actors</h3>
 
-            <h3 className="sectionTitle">Actors</h3>
+                <StyledCastGrid>
+                    {movieCredits}
+                </StyledCastGrid>
+            </>
+        )
+    } else if (loading) {
+        return <LoadingPage />
+    } else if (error) {
+        return <ErrorPage />
+    }
 
-            <StyledCastGrid>
-                {movieCredits}
-            </StyledCastGrid>
-        </>
-    )
 }
 
 export default MovieDetail

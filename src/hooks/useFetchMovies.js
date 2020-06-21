@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios'
 
 const useFetchMovies = endpoint => {
-    const [state, setState] = useState({ movies: [], backgroundImage:"" })
+    const [state, setState] = useState({
+        movies: [],
+        backgroundImage: "",
+        totalPages: 0,
+        status: null
+    })
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -12,21 +17,23 @@ const useFetchMovies = endpoint => {
             setError(false)
             axios.get(endpoint)
                 .then(res => {
-                    // console.log(res.data)
+                    console.log(res)
                     setState(prev => ({
                         ...prev,
+                        status: res.status,
                         movies: res.data.results,
-                        totalPages: res.data.total_pages, 
-                        backgroundImage: (res.data.results[0]!==undefined) ? res.data.results[0].backdrop_path : null
-                        
+                        totalPages: res.data.total_pages > 0 ? res.data.total_pages : 0,
+                        backgroundImage: (res.data.results[0] !== undefined) ? res.data.results[0].backdrop_path : null
+
                     }))
+                    setLoading(false)
                 })
         } catch (error) {
+            setLoading(false)
             setError(true)
             console.log(error)
         }
-        setLoading(false)
-        }, [endpoint])
+    }, [endpoint])
     return [{ state, error, loading }]
 }
 
