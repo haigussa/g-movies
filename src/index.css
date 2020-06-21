@@ -11,3 +11,9 @@ body {
  font-family: 'Montserrat', sans-serif;
 background-color:#222;
 }
+.sectionTitle{
+  color:white;
+  font-size: 3rem;
+  text-align: center;
+  margin: 3rem 2rem;
+}

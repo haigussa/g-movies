@@ -41,6 +41,7 @@ background-color: #CACACA;
         padding: 1rem;
         display:flex;
         justify-content: space-evenly;
+        align-items:center;
         margin-top: 2rem;
         position:absolute;
         bottom: 0;
@@ -51,7 +52,6 @@ background-color: #CACACA;
             font-size: 1.5rem;
         }
         .cta {
-            /* border: 1px solid #e43f5a; */
             padding: 0.4rem 1rem;
             border-radius: 4px;
             color:white;
@@ -62,7 +62,6 @@ background-color: #CACACA;
                 cursor:pointer;
                 background-color:#c2c2c2;
                 color:#222;
-                /* border: 1px solid #e43f5a; */
             }
         }
     }

@@ -2,11 +2,10 @@ import styled from 'styled-components'
 
 const StyledMovieDetail = styled.div`
     min-width: 100%;
-    height: 650px;
     margin-top: -1.9rem;
     text-align:center;
     position:relative;
-    min-height:80vh;
+    min-height:80%;
     background: ${props => `url(${props.bgImage}) no-repeat center center/cover`};
     .movieSummary{
         color: white;
@@ -38,7 +37,6 @@ const StyledMovieDetail = styled.div`
         margin: auto;
         display:flex;
         flex-direction:column;
-        
         h2{
             font-size:4rem;
             padding-top: 2rem;
@@ -56,47 +54,53 @@ const StyledMovieDetail = styled.div`
             border: 1px solid #c2c2c2;
             border-bottom: none;
             border-radius:10px 10px 0 0 ;
-            max-width: 80%;
-            margin:auto auto 6rem;
-
+            width: 80%;
+            height:60%;;
+            position:absolute;
+            bottom:6rem;
+            left:50%;
+            transform:translateX(-50%);
+            @media (max-width: 978px) {
+                    flex-direction: column;
+                }
             img{
                 align-self:center;
+                border-radius: 10px 0 0 0;
                 background-color:transparent;
+                height:100%;
                 @media (max-width: 978px) {
-                    flex-direction: column;
                     display:none;
                 }
             }
             .overview{
                 display:flex;
                 flex-direction:column;
-                justify-content: space-around;
                 .moviePlot{
                     margin: 1rem;
                     p{
                         font-size:1.7rem;
                         text-align:justify;
-                        line-height:1.5;
+                        line-height:1.3;
                         padding: 1rem 2rem;
                     }
                 }
             }
             .movieDetails{
                 display:flex;
-                justify-content:space-evenly;
-                margin-bottom: 4rem;
+                justify-content:space-between;
                 @media (max-width: 414px) {
-        display:none;
+                display:none;
     }
                 .feature{
                     h3{
-                        font-size:2rem;
-                        margin: 1rem 2rem;
+                        font-size:1.7rem;
+                        margin: 0 2rem 1rem;
                     }
                     .featureList li{
                         list-style:none;
-                        font-size: 1.5rem;
-                        padding-bottom: 1rem;
+                        font-size: 1.3rem;
+                        padding: .5rem 2rem;
+                        text-align:left;
                     }
                 }
             }
