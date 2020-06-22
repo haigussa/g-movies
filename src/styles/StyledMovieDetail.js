@@ -72,38 +72,7 @@ const StyledMovieDetail = styled.div`
                     display:none;
                 }
             }
-            .overview{
-                display:flex;
-                flex-direction:column;
-                .moviePlot{
-                    margin: 1rem;
-                    p{
-                        font-size:1.7rem;
-                        text-align:justify;
-                        line-height:1.3;
-                        padding: 1rem 2rem;
-                    }
-                }
-            }
-            .movieDetails{
-                display:flex;
-                justify-content:space-between;
-                @media (max-width: 414px) {
-                display:none;
-    }
-                .feature{
-                    h3{
-                        font-size:1.7rem;
-                        margin: 0 2rem 1rem;
-                    }
-                    .featureList li{
-                        list-style:none;
-                        font-size: 1.3rem;
-                        padding: .5rem 2rem;
-                        text-align:left;
-                    }
-                }
-            }
+            
         }
     }
         

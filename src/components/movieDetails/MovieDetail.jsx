@@ -15,43 +15,25 @@ import {
     FaClock,
     FaRegCalendarCheck
 } from 'react-icons/fa'
+import MovieOverview from './MovieOverview'
+import MovieFeatures from './MovieFeatures'
 
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
 
 const MovieDetail = props => {
-    
+
     const { id } = props.match.params
     const [{ movieDetail, error, loading }] = useFetchMovieDetail(id)
 
-    const [{ credits }] = useFetchCredits(id)
+    const [{ casts, crews }] = useFetchCredits(id)
 
-    const movieGenres = movieDetail.genres.length
-        ? movieDetail.genres.map(genre =>
-            <li key={genre.name}>
-                {genre.name}
-            </li>)
-        : ""
 
     const posterImage = movieDetail.movie.poster_path
         ? `${IMG_BASE_URL}w342${movieDetail.movie.poster_path}`
         : { NoPhotoAvailable }
 
-    const movieLanguages = movieDetail.languages.length
-        ? movieDetail.languages.map(language =>
-            <li key={language.name}>
-                {language.name}
-            </li>)
-        : ""
-
-    const movieCountries = movieDetail.countries.length
-        ? movieDetail.countries.map(country =>
-            <li key={country.name}>
-                {country.name}
-            </li>)
-        : ""
-
-    const movieCredits = credits.length
-        ? credits.map(cast =>
+    const movieCredits = casts.length
+        ? casts.map(cast =>
             <MovieCast key={cast.id}
                 profilePic={cast.profile_path
                     ? `${IMG_BASE_URL}w300${cast.profile_path}`
@@ -59,6 +41,25 @@ const MovieDetail = props => {
                 actorName={cast.name}
                 character={cast.character} />)
         : ""
+
+        const movieDirectors = crews.length ? crews.filter(crew => {
+            if(crew.job==='Director'){
+                // return Array.from(`<li>${crew.name}</li>`)
+                return crew.name
+            }else{
+                return null
+            }
+        }):[]
+
+        console.log(movieDetail)
+
+        // const directorsList = movieDirectors.length?
+
+
+
+    
+
+
     if (!error && !loading) {
 
         return (
@@ -89,59 +90,14 @@ const MovieDetail = props => {
 
                         <div className="movieContainer">
                             <img src={posterImage} alt={movieDetail.movie.title} />
-                            <div className="overview">
-                                <div className="moviePlot">
-                                    <p>{movieDetail.movie.overview}</p>
-                                </div>
-                                <div className="movieDetails">
-                                    <div className="feature" >
-                                        <h3>
-                                            {
-                                                movieDetail.genres.length === 1
-                                                    ? "Genres"
-                                                    : movieDetail.genres.length > 1
-                                                        ? "Genres" : ""
-                                            }
-                                        </h3>
-                                        <ul className="featureList">
-                                            {movieGenres}
-                                        </ul>
-                                    </div>
-                                    <div className="feature">
-                                        <h3>
-                                            {
-                                                movieDetail.languages.length === 1
-                                                    ? "Language"
-                                                    : movieLanguages.length > 1
-                                                        ? "Languages"
-                                                        : ""
-                                            }
-                                        </h3>
-                                        <ul className="featureList">
-                                            {movieLanguages}
-                                        </ul>
-                                    </div>
-                                    <div className="feature">
-                                        <h3>
-                                            {
-                                                movieDetail.countries.length === 1
-                                                    ? "Country"
-                                                    : movieDetail.countries.length > 1
-                                                        ? "Countries"
-                                                        : ""
-                                            }
-                                        </h3>
-                                        <ul className="featureList">
-                                            {movieCountries}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            <MovieFeatures genres={movieDetail.genres} languages={movieDetail.languages} countries={movieDetail.countries}/>
                         </div>
 
                     </div>
 
                 </StyledMovieDetail>
+
+                <MovieOverview overview={movieDetail.movie.overview}  directors={movieDirectors} revenue={movieDetail.movie.revenue}/>
 
                 <h3 className="sectionTitle">Actors</h3>
 
