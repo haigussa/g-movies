@@ -19,47 +19,33 @@ import {
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
 
 const MovieDetail = props => {
-    const [
-        {
-            movie,
-            genres,
-            languages,
-            countries,
-            error,
-            loading
-        }
+    
+    const { id } = props.match.params
+    const [{ movieDetail, error, loading }] = useFetchMovieDetail(id)
 
-    ] = useFetchMovieDetail(props.match.params.id)
+    const [{ credits }] = useFetchCredits(id)
 
-    const [
-        { credits },
-    ] = useFetchCredits(props.match.params.id)
-
-    console.log(credits.cast)
-    const movieGenres = genres.length
-        ? genres.map(genre =>
-            <li
-                key={genre.name}>
+    const movieGenres = movieDetail.genres.length
+        ? movieDetail.genres.map(genre =>
+            <li key={genre.name}>
                 {genre.name}
             </li>)
-        : ''
+        : ""
 
-    const posterImage = movie.poster_path
-        ? `${IMG_BASE_URL}w342${movie.poster_path}`
+    const posterImage = movieDetail.movie.poster_path
+        ? `${IMG_BASE_URL}w342${movieDetail.movie.poster_path}`
         : { NoPhotoAvailable }
 
-    const movieLanguages = languages.length
-        ? languages.map(language =>
-            <li
-                key={language.name}>
+    const movieLanguages = movieDetail.languages.length
+        ? movieDetail.languages.map(language =>
+            <li key={language.name}>
                 {language.name}
             </li>)
         : ""
 
-    const movieCountries = countries.length
-        ? countries.map(country =>
-            <li
-                key={country.name}>
+    const movieCountries = movieDetail.countries.length
+        ? movieDetail.countries.map(country =>
+            <li key={country.name}>
                 {country.name}
             </li>)
         : ""
@@ -78,42 +64,42 @@ const MovieDetail = props => {
         return (
             <>
 
-                <StyledMovieDetail bgImage={movie.backdrop_path
-                    ? `${IMG_BASE_URL}w1280/${movie.backdrop_path}`
+                <StyledMovieDetail bgImage={movieDetail.movie.backdrop_path
+                    ? `${IMG_BASE_URL}w1280/${movieDetail.movie.backdrop_path}`
                     : NoBackground}>
 
                     <div className="movieSummary">
                         <span>
-                            <FaThumbsUp size="2rem" className="fa" /> &nbsp; {movie.vote_average}
+                            <FaThumbsUp size="2rem" className="fa" /> &nbsp; {movieDetail.movie.vote_average}
                         </span>
                         <span>
                             <FaClock size="2rem" className="fa" />
-                        &nbsp; {movie.runtime} minutes
+                        &nbsp; {movieDetail.movie.runtime} minutes
                         </span>
-                        <span><FaRegCalendarCheck size="2rem" className="fa" /> &nbsp; {new Date(movie.release_date).getFullYear()} </span>
+                        <span><FaRegCalendarCheck size="2rem" className="fa" /> &nbsp; {new Date(movieDetail.movie.release_date).getFullYear()} </span>
                     </div>
 
                     <div className="movieDescriptionWrapper">
                         <div className="title">
-                            <h2>{movie.title}</h2>
+                            <h2>{movieDetail.movie.title}</h2>
                             <span className="tagline">
-                                {movie.tagline}
+                                {movieDetail.movie.tagline}
                             </span>
                         </div>
 
                         <div className="movieContainer">
-                            <img src={posterImage} alt={movie.title} />
+                            <img src={posterImage} alt={movieDetail.movie.title} />
                             <div className="overview">
                                 <div className="moviePlot">
-                                    <p>{movie.overview}</p>
+                                    <p>{movieDetail.movie.overview}</p>
                                 </div>
                                 <div className="movieDetails">
                                     <div className="feature" >
                                         <h3>
                                             {
-                                                genres.length === 1
+                                                movieDetail.genres.length === 1
                                                     ? "Genres"
-                                                    : genres.length > 1
+                                                    : movieDetail.genres.length > 1
                                                         ? "Genres" : ""
                                             }
                                         </h3>
@@ -124,7 +110,7 @@ const MovieDetail = props => {
                                     <div className="feature">
                                         <h3>
                                             {
-                                                languages.length === 1
+                                                movieDetail.languages.length === 1
                                                     ? "Language"
                                                     : movieLanguages.length > 1
                                                         ? "Languages"
@@ -138,9 +124,9 @@ const MovieDetail = props => {
                                     <div className="feature">
                                         <h3>
                                             {
-                                                countries.length === 1
+                                                movieDetail.countries.length === 1
                                                     ? "Country"
-                                                    : countries.length > 1
+                                                    : movieDetail.countries.length > 1
                                                         ? "Countries"
                                                         : ""
                                             }

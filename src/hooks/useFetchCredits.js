@@ -10,7 +10,6 @@ const useFetchCredits = (movieId) => {
             .then(res => {
                 setLoading(true)
                 setCredits(res.data.cast)
-                console.log(res.data.cast)
             }).catch(err => {
                 setLoading(false)
                 setError(true)

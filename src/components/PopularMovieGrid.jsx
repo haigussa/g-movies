@@ -28,7 +28,6 @@ const PopularMovieGrid = () => {
         console.log(prevPage)
         window.scrollTo(0, 0)
     }
-    // console.log(state)
     const handleChange = e => {
         setSearchText(e.target.value)
     }

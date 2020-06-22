@@ -2,10 +2,10 @@ import { useState, useEffect, useCallback } from 'react'
 import Axios from 'axios'
 
 const useFetchMovieDetail = (movieId) => {
-    const [movie, setMovie] = useState({})
-    const [genres, setGenres] = useState([])
-    const [languages, setLanguages] = useState([])
-    const [countries, setCountries] = useState([])
+    const [movieDetail, setMovieDetail] = useState({movie:[], genres:[], languages:[], countries:[]})
+    // const [genres, setGenres] = useState([])
+    // const [languages, setLanguages] = useState([])
+    // const [countries, setCountries] = useState([])
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const fetchMovieDetail = useCallback(() => {
@@ -13,11 +13,18 @@ const useFetchMovieDetail = (movieId) => {
         setLoading(true)
         Axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=716b3f0b5027135ac51ac9d6da4b4698&language=en-US`)
             .then(res => {
-                setMovie(res.data)
-                console.log(res.data)
-                setGenres(res.data.genres)
-                setLanguages(res.data.spoken_languages)
-                setCountries(res.data.production_countries)
+                setMovieDetail(prev=>({
+                    ...prev,
+                    movie: res.data,
+                    genres: res.data.genres,
+                    languages:res.data.spoken_languages,
+                    countries:res.data.production_countries
+                }))
+                // setMovie(res.data)
+                // console.log(res.data)
+                // setGenres(res.data.genres)
+                // setLanguages(res.data.spoken_languages)
+                // setCountries(res.data.production_countries)
             }).catch(err => {
                 setError(true)
                 setLoading(false)
@@ -30,7 +37,7 @@ const useFetchMovieDetail = (movieId) => {
         fetchMovieDetail(`https://api.themoviedb.org/3/movie/${movieId}?api_key=716b3f0b5027135ac51ac9d6da4b4698&language=en-US`)
     }, [movieId, fetchMovieDetail])
 
-    return [{ movie, genres, languages, countries, error, loading }, fetchMovieDetail]
+    return [{ movieDetail, error, loading }, fetchMovieDetail]
 }
 
 export default useFetchMovieDetail

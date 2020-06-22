@@ -17,7 +17,6 @@ const useFetchMovies = endpoint => {
             setError(false)
             axios.get(endpoint)
                 .then(res => {
-                    console.log(res)
                     setState(prev => ({
                         ...prev,
                         status: res.status,
