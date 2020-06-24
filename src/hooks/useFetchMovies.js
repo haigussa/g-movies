@@ -24,8 +24,9 @@ const useFetchMovies = endpoint => {
                         totalPages: res.data.total_pages > 0
                             ? res.data.total_pages
                             : 0,
-                        backgroundImage: (res.data.results[0] !== undefined) 
-                        ? res.data.results[0].backdrop_path : null
+                        backgroundImage: (res.data.results[0] !== undefined)
+                            ? res.data.results[0].backdrop_path
+                            : null
                     }))
                     setLoading(false)
                 })

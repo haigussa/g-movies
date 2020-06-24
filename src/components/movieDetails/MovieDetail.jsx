@@ -13,8 +13,8 @@ import MovieFeatures from './MovieFeatures'
 import MovieInfoRow from './MovieInfoRow'
 import { FaRegArrowAltCircleUp } from 'react-icons/fa'
 import { useState } from 'react'
+import {IMG_BASE_URL} from '../../config'
 
-const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
 
 const MovieDetail = props => {
 
@@ -40,11 +40,7 @@ const MovieDetail = props => {
     const [scrolled, setScrolled] = useState(false)
 
     useEffect(() => {
-        // const controller = new AbortController();
         window.scroll(0, 0)
-        // return ()=>{
-        // controller.abort()
-        // }
     }, [])
 
     const handleScrollToTop = () => {

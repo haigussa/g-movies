@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { API_BASE_URL } from '../config'
 import Axios from 'axios'
 
 const useFetchCredits = (movieId) => {
@@ -9,7 +10,6 @@ const useFetchCredits = (movieId) => {
     const fetchCredits = useCallback((endpoint) => {
         Axios.get(endpoint)
             .then(res => {
-                // console.log(res.data)
                 setLoading(true)
                 setCasts(res.data.cast)
                 setCrews(res.data.crew)
@@ -17,13 +17,12 @@ const useFetchCredits = (movieId) => {
                 setLoading(false)
                 setError(true)
                 console.log(err)
-            }
-            )
+            })
         setLoading(false)
         setError(false)
     }, [])
     useEffect(() => {
-        fetchCredits(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=716b3f0b5027135ac51ac9d6da4b4698`)
+        fetchCredits(`${API_BASE_URL}movie/${movieId}/credits?api_key=${process.env.REACT_APP_SECRET_KEY}`)
     }, [movieId, fetchCredits])
     return [{ casts, crews, error, loading }, fetchCredits]
 }

@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import MovieCard from './MovieCard'
 import useFetchMovies from '../hooks/useFetchMovies'
 import StyledMovieGrid, { StyledTitle, StyledHeroTitle } from '../styles/StyledMovieGrid'
-import StyledButton from '../styles/StyledButton'
+import StyledButton, { StyledPageEndAnchor } from '../styles/StyledButton'
 import StyledForm from '../styles/StyledForm'
 import NoPhotoAvailable from '../NoPhotoAvailable.png'
 import NoBackground from '../NoBackground.png'
 import LoadingPage from './LoadingPage'
 import ErrorPage from './ErrorPage'
 import NotFound from './NotFound'
-const BASE_URL = 'https://api.themoviedb.org/3/'
-const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
+import { API_BASE_URL, IMG_BASE_URL } from '../config'
 
 const PopularMovieGrid = () => {
     const [searchMovies, setSearchMovies] = useState(false)
@@ -18,9 +17,10 @@ const PopularMovieGrid = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchText, setSearchText] = useState('')
 
-    const endPoint = searchMovies
-        ? `${BASE_URL}search/movie?api_key=${process.env.REACT_APP_SECRET_KEY}&language=en-US&query=${searchTerm}&page=${page}&include_adult=false`
-        : `${BASE_URL}movie/popular?api_key=${process.env.REACT_APP_SECRET_KEY}&language=en-US&page=${page}`
+    let endPoint = searchMovies
+        ? `${API_BASE_URL}search/movie?api_key=${process.env.REACT_APP_SECRET_KEY}&language=en-US&query=${searchTerm}&page=${page}&include_adult=false`
+        : `${API_BASE_URL}movie/popular?api_key=${process.env.REACT_APP_SECRET_KEY}&language=en-US&page=${page}`
+
     const [{ state, error, loading }] = useFetchMovies(endPoint)
 
     const handlePageChange = prevPage => {
@@ -53,7 +53,7 @@ const PopularMovieGrid = () => {
         />
     })
     // console.log(state)
-    if (!error && !loading && state.totalPages > 1) {
+    if (!error && !loading && state.totalPages >= 1) {
         return (
             <>
                 {searchMovies
@@ -78,9 +78,10 @@ const PopularMovieGrid = () => {
                 <StyledMovieGrid>
                     {movieList}
                 </StyledMovieGrid>
-                <StyledButton
-                    onClick={() => handlePageChange(page)}
-                > View More</StyledButton>
+                {state.totalPages > page
+                    ? <StyledButton onClick={() => handlePageChange(page)}> More  </StyledButton>
+                    : <StyledPageEndAnchor href="/" ><StyledButton>Go back</StyledButton></StyledPageEndAnchor>
+                }
             </>
         )
     } else if (loading) {

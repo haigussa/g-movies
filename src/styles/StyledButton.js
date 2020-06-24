@@ -10,10 +10,28 @@ const StyledButton = styled.button`
     margin: 4rem auto;
     outline:none;
     transition: all 0.3s ease-in-out;
+    border:none;
+    outline:none;
     &:hover{
         cursor: pointer;
         background-color: black;
     }
+    
+        
 `
+export const StyledPageEndAnchor = styled.a`
+        text-decoration:none;
+        button{
+            background-color:#e43f5a;
+            &:hover{
+                color:#e43f5a;
+                background-color:#FFF;
+    
+            }
+        }
 
+
+        
+
+`
 export default StyledButton;
