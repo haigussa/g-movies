@@ -18,7 +18,7 @@ const StyledMovieCast = styled.div`
     h4{
         color:#222;
         font-size: 2rem;
-        padding: 2rem .5rem;
+        padding: 0.5rem .5rem;
     }
     p{
         font-size: 1.5rem;

@@ -31,7 +31,6 @@ h2{
             font-size:2rem;
             color: #FFF;
             padding: 0.5rem 3rem
-
         }
     }
 `

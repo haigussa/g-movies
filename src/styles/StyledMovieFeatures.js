@@ -9,16 +9,15 @@ const StyledMovovieFeatures = styled.div`
     } 
     .feature{
         margin: 1rem;
-
         h3{
-            font-size:2rem;
+            font-size:2.5rem;
             margin: 0 2rem 1rem;
         }
         .featureList li{
             list-style:none;
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             padding: .5rem;
-            text-align:left;
+            /* text-align:left; */
         }
     }
 

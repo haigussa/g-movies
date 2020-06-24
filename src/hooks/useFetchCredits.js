@@ -9,7 +9,7 @@ const useFetchCredits = (movieId) => {
     const fetchCredits = useCallback((endpoint) => {
         Axios.get(endpoint)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 setLoading(true)
                 setCasts(res.data.cast)
                 setCrews(res.data.crew)

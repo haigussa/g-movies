@@ -3,28 +3,6 @@ import StyledMovovieFeatures from '../../styles/StyledMovieFeatures'
 
 const MovieFeatures = ({ genres, languages, countries}) => {
 
-    const movieGenres = genres.length
-        ? genres.map(genre =>
-            <li key={genre.name}>
-                {genre.name}
-            </li>)
-        : ""
-
-    const movieLanguages = languages.length
-        ? languages.map(language =>
-            <li key={language.name}>
-                {language.name}
-            </li>)
-        : ""
-
-    const movieCountries = countries.length
-        ? countries.map(country =>
-            <li key={country.name}>
-                {country.name}
-            </li>)
-        : ""
-
-   
     return (
 
         <StyledMovovieFeatures className="movieDetails">
@@ -38,7 +16,7 @@ const MovieFeatures = ({ genres, languages, countries}) => {
                     }
                 </h3>
                 <ul className="featureList">
-                    {movieGenres}
+                    {genres}
                 </ul>
             </div>
             <div className="feature">
@@ -52,7 +30,7 @@ const MovieFeatures = ({ genres, languages, countries}) => {
                     }
                 </h3>
                 <ul className="featureList">
-                    {movieLanguages}
+                    {languages}
                 </ul>
             </div>
             <div className="feature">
@@ -66,7 +44,7 @@ const MovieFeatures = ({ genres, languages, countries}) => {
                     }
                 </h3>
                 <ul className="featureList">
-                    {movieCountries}
+                    {countries}
                 </ul>
             </div>
 

@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useFetchMovieDetail from '../../hooks/useFetchMovieDetail'
 import NoBackground from '../../NoBackground.png'
-import NoPhotoAvailable from '../../NoPhotoAvailable.png'
 import NoProfilePicture from '../../NoProfilePicture.png'
 import StyledMovieDetail from '../../styles/StyledMovieDetail'
 import { StyledCastGrid } from '../../styles/StyledMovieCast'
@@ -9,28 +8,79 @@ import LoadingPage from '../LoadingPage'
 import ErrorPage from '../ErrorPage'
 import useFetchCredits from '../../hooks/useFetchCredits'
 import MovieCast from './MovieCast'
-
-import {
-    FaThumbsUp,
-    FaClock,
-    FaRegCalendarCheck
-} from 'react-icons/fa'
 import MovieOverview from './MovieOverview'
 import MovieFeatures from './MovieFeatures'
+import MovieInfoRow from './MovieInfoRow'
+import { FaRegArrowAltCircleUp } from 'react-icons/fa'
+import { useState } from 'react'
 
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/'
 
 const MovieDetail = props => {
 
+    const showTopButton = {
+        width: "50px",
+        height: "50px",
+        backgroundColor: "rgba(228, 63, 90, .7)",
+        color: "white",
+        borderRadius: "50%",
+        border: "none",
+        outline: "none",
+        position: "fixed",
+        bottom: "1rem",
+        left: "50%",
+        transform: "translateX(-50%)",
+        cursor: "pointer"
+    }
+
+    const hideTopButton = {
+        display: "hidden"
+    }
+
+    const [scrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+        // const controller = new AbortController();
+        window.scroll(0, 0)
+        // return ()=>{
+        // controller.abort()
+        // }
+    }, [])
+
+    const handleScrollToTop = () => {
+        const scrolledDown = window.scrollY > 300;
+        scrolledDown ? setScrolled(true) : setScrolled(false)
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScrollToTop)
+        return () => window.removeEventListener("scroll", handleScrollToTop)
+    }, [])
+
     const { id } = props.match.params
     const [{ movieDetail, error, loading }] = useFetchMovieDetail(id)
-
     const [{ casts, crews }] = useFetchCredits(id)
 
+    const movieGenres = movieDetail.genres.length
+        ? movieDetail.genres.map(genre =>
+            <li key={genre.name}>
+                {genre.name}
+            </li>)
+        : ""
 
-    const posterImage = movieDetail.movie.poster_path
-        ? `${IMG_BASE_URL}w342${movieDetail.movie.poster_path}`
-        : { NoPhotoAvailable }
+    const movieLanguages = movieDetail.languages.length
+        ? movieDetail.languages.map(language =>
+            <li key={language.name}>
+                {language.name}
+            </li>)
+        : ""
+
+    const movieCountries = movieDetail.countries.length
+        ? movieDetail.countries.map(country =>
+            <li key={country.name}>
+                {country.name}
+            </li>)
+        : ""
 
     const movieCredits = casts.length
         ? casts.map(cast =>
@@ -42,45 +92,35 @@ const MovieDetail = props => {
                 character={cast.character} />)
         : ""
 
-        const movieDirectors = crews.length ? crews.filter(crew => {
-            if(crew.job==='Director'){
-                // return Array.from(`<li>${crew.name}</li>`)
-                return crew.name
-            }else{
-                return null
-            }
-        }):[]
+    const movieDirectors = crews.length ? crews.filter(crew => {
+        if (crew.job === 'Director') {
+            return crew.name
+        } else {
+            return null
+        }
+    }) : []
 
-        console.log(movieDetail)
-
-        // const directorsList = movieDirectors.length?
-
-
-
-    
-
+    const scrollToTop = () => {
+        window.scroll(0, 0)
+    }
 
     if (!error && !loading) {
-
         return (
             <>
+                <StyledMovieDetail
+                    bgImage={movieDetail.movie.backdrop_path
+                        ? `${IMG_BASE_URL}w1280/${movieDetail.movie.backdrop_path}`
+                        : NoBackground}
+                >
 
-                <StyledMovieDetail bgImage={movieDetail.movie.backdrop_path
-                    ? `${IMG_BASE_URL}w1280/${movieDetail.movie.backdrop_path}`
-                    : NoBackground}>
-
-                    <div className="movieSummary">
-                        <span>
-                            <FaThumbsUp size="2rem" className="fa" /> &nbsp; {movieDetail.movie.vote_average}
-                        </span>
-                        <span>
-                            <FaClock size="2rem" className="fa" />
-                        &nbsp; {movieDetail.movie.runtime} minutes
-                        </span>
-                        <span><FaRegCalendarCheck size="2rem" className="fa" /> &nbsp; {new Date(movieDetail.movie.release_date).getFullYear()} </span>
-                    </div>
+                    <MovieInfoRow
+                        rating={movieDetail.movie.vote_average}
+                        runtime={movieDetail.movie.runtime}
+                        releaseDate={new Date(movieDetail.movie.release_date).getFullYear()}
+                    />
 
                     <div className="movieDescriptionWrapper">
+
                         <div className="title">
                             <h2>{movieDetail.movie.title}</h2>
                             <span className="tagline">
@@ -89,21 +129,37 @@ const MovieDetail = props => {
                         </div>
 
                         <div className="movieContainer">
-                            <img src={posterImage} alt={movieDetail.movie.title} />
-                            <MovieFeatures genres={movieDetail.genres} languages={movieDetail.languages} countries={movieDetail.countries}/>
+                            <MovieFeatures
+                                genres={movieGenres}
+                                languages={movieLanguages}
+                                countries={movieCountries}
+                            />
                         </div>
-
                     </div>
 
                 </StyledMovieDetail>
 
-                <MovieOverview overview={movieDetail.movie.overview}  directors={movieDirectors} revenue={movieDetail.movie.revenue}/>
+                <MovieOverview
+                    overview={movieDetail.movie.overview}
+                    directors={movieDirectors}
+                    revenue={movieDetail.movie.revenue}
+                />
 
                 <h3 className="sectionTitle">Actors</h3>
 
                 <StyledCastGrid>
                     {movieCredits}
                 </StyledCastGrid>
+
+                <button
+                    onClick={scrollToTop}
+                    style={scrolled
+                        ? showTopButton
+                        : hideTopButton}>
+                    <FaRegArrowAltCircleUp
+                        size="3rem" />
+                </button>
+
             </>
         )
     } else if (loading) {
@@ -111,7 +167,6 @@ const MovieDetail = props => {
     } else if (error) {
         return <ErrorPage />
     }
-
 }
 
 export default MovieDetail
