@@ -4,17 +4,17 @@ const StyledMovieCard = styled.div`
 display: flex;
 width: 630px;
 margin: 2rem auto;
-min-height: 100%;
+height: 100%;
 border: 2px solid #999;
 border-radius: 0 30px 30px 0; 
 background-color: white;
 background-color: #CACACA;
 .imgContainer{
-    height: 100%;
+    min-height: 100%;
     box-sizing: border-box;
     img{
         display: block;
-        height: 100%;
+        min-height: 100%;
         width:154px;
         &:hover{
             cursor: pointer;
