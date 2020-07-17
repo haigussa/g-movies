@@ -9,11 +9,11 @@ const useFetchMovieDetail = (movieId) => {
         languages: [],
         countries: []
     })
+
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const fetchMovieDetail = useCallback((endpoint) => {
-
         setError(false)
         setLoading(true)
         Axios.get(endpoint)

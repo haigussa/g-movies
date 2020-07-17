@@ -2,7 +2,7 @@ import React from 'react'
 import StyledMovieCard from '../styles/StyledMovieCard'
 import { Link } from 'react-router-dom'
 
-const MovieCard = ({id, imgSrc, title, plot, releaseDate, rating}) => {
+const MovieCard = ({ id, imgSrc, title, plot, releaseDate, rating }) => {
     return (
         <StyledMovieCard>
             <div className="imgContainer">
@@ -19,13 +19,13 @@ const MovieCard = ({id, imgSrc, title, plot, releaseDate, rating}) => {
                     <p className="movieDets">
                         <span>Year &nbsp;</span>
                         <span>
-                            {new Date(releaseDate).getFullYear()}
+                            {releaseDate ? new Date(releaseDate).getFullYear(): "N/A"}
                         </span>
                     </p>
                     <p className="movieDets">
                         <span>Rating &nbsp;</span>
                         <span className="rating">
-                            {rating}/10
+                            {rating > 0 ? `${rating}/10` : "N/A"}
                         </span>
                     </p>
                     <Link to={"/movie/" + id}>

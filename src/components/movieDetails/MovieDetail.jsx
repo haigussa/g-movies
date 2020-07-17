@@ -110,7 +110,7 @@ const MovieDetail = props => {
                 >
 
                     <MovieInfoRow
-                        rating={movieDetail.movie.vote_average}
+                        rating={movieDetail.movie.vote_average > 0 ? movieDetail.movie.vote_average: "N/A"}
                         runtime={movieDetail.movie.runtime}
                         releaseDate={new Date(movieDetail.movie.release_date).getFullYear()}
                     />
@@ -124,7 +124,7 @@ const MovieDetail = props => {
                             </span>
                         </div>
 
-                        <div className="movieContainer">
+                        <div className="movieContainer" >
                             <MovieFeatures
                                 genres={movieGenres}
                                 languages={movieLanguages}

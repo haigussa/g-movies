@@ -12,6 +12,7 @@ import NotFound from './NotFound'
 import { API_BASE_URL, IMG_BASE_URL } from '../config'
 
 const PopularMovieGrid = () => {
+    
     const [searchMovies, setSearchMovies] = useState(false)
     const [page, setPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState('')
@@ -25,7 +26,6 @@ const PopularMovieGrid = () => {
 
     const handlePageChange = prevPage => {
         setPage(prevPage += 1)
-        console.log(prevPage)
         window.scrollTo(0, 0)
     }
     const handleChange = e => {
@@ -52,7 +52,6 @@ const PopularMovieGrid = () => {
                 : `${NoPhotoAvailable}`}
         />
     })
-    // console.log(state)
     if (!error && !loading && state.totalPages >= 1) {
         return (
             <>

@@ -5,7 +5,7 @@ const MovieFeatures = ({ genres, languages, countries}) => {
 
     return (
 
-        <StyledMovovieFeatures className="movieDetails">
+        <StyledMovovieFeatures >
             <div className="feature" >
                 <h3>
                     {

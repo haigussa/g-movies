@@ -29,7 +29,6 @@ const MovieOverview = ({ overview, directors, revenue }) => {
                         <li>
                             {
                                revenue? `$${revenue.toLocaleString()}`:"N/A"
-                           
                             }
                         </li>
                     </ul>

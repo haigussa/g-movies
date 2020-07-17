@@ -13,11 +13,27 @@ const StyledMovovieFeatures = styled.div`
             font-size:2.5rem;
             margin: 0 2rem 1rem;
         }
+        ul{
+            max-height: 80%;
+            overflow-y:auto;
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+            &::-webkit-scrollbar-track {
+                background:#666; 
+                border-radius: 5px;
+            } 
+            &::-webkit-scrollbar-thumb {
+                background-color: black;
+                border-radius: 20px;
+                border: 1px solid #c2c2c2;
+            }
+        }
         .featureList li{
             list-style:none;
             font-size: 1.7rem;
             padding: .5rem;
-            /* text-align:left; */
+           
         }
     }
 
