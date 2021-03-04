@@ -112,7 +112,7 @@ const MovieDetail = props => {
                     <MovieInfoRow
                         rating={movieDetail.movie.vote_average > 0 ? movieDetail.movie.vote_average: "N/A"}
                         runtime={movieDetail.movie.runtime}
-                        releaseDate={new Date(movieDetail.movie.release_date).getFullYear()}
+                        releaseDate={new Date(movieDetail.movie.release_date)}
                     />
 
                     <div className="movieDescriptionWrapper">
