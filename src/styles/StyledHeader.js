@@ -36,7 +36,5 @@ img{
     align-self:center;
 }
 
-
-
 `
 export default StyledHeader
